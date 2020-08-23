@@ -1,18 +1,24 @@
 import React, {PureComponent} from 'react'
-import { Link } from "react-router-dom";
-import './menu.scss';
+import { Link, NavLink } from "react-router-dom";
+import style from './menu.module.scss';
 import ShoppingBasket from '../shoppingBasket/shoppingBasket.js';
 
+const myContext = React.createContext({});
+export const UserProvider = myContext.Provider;
+export const UserConsumer = myContext.Consumer;
 
 export default class Menu extends PureComponent {
   render() {
     return (
-      <div className="head">
+      <div className={style.head}>
         <nav>
-          <Link to="/">Главная</Link>
-          <Link to="/aboutus">О нас</Link>
+          <NavLink exact activeClassName={style.active} to="/">Главная</NavLink>
+          <NavLink activeClassName={style.active} to="/aboutus">О нас</NavLink>
         </nav>
-        <ShoppingBasket />
+
+        <UserProvider>
+          <ShoppingBasket />
+        </UserProvider>
       </div>
     )
   }

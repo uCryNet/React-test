@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react'
-import './filter.scss';
+import style from './filter.module.scss';
 
 export default class Filter extends PureComponent {
 
@@ -13,7 +13,9 @@ export default class Filter extends PureComponent {
     const buttons = this.buttons.map (({ name, title }) => {
       return (
         <label key={name}>
-          {title}
+          <h4>
+            {title}
+          </h4>
           <input
             name={name}
             type="checkbox"
@@ -25,7 +27,7 @@ export default class Filter extends PureComponent {
     })
     // вставляем кнопки в компонент
     return (
-      <div className="filter">
+      <div className={style.filter}>
         { buttons }
       </div>
     )

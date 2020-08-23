@@ -5,54 +5,40 @@ import json from '../../components/json/json.js'
 import Filter from '../../components/filter/filter.js'
 import Filtered from '../../components/filtered/filtered.js'
 import Search from '../../components/search/search.js';
+import Sort from '../../components/sort/sort.js';
 
 export default class Shop extends PureComponent {
   state = {
-    search: undefined,
+    search: "",
     filters: [],
-    items: []
+    sort: "cheap to expensive"
   };
 
-  // проверяем какие фильтры выбрал юзер
-  onFilterChange = ( event ) => {
-    const checkboxes = [...event.currentTarget.closest(".filter").getElementsByTagName("input")]
-    const filters = [];
-    checkboxes.map(checkbox => {
-      if (checkbox.checked) {
-        filters.push(checkbox.name);
-      }
-    });
-    this.setState({ filters }, this.filtredInput);
-  }
-
-  // фильтруем согласно выбранным фильтрам
-  filtredInput() {
-    const items = json.filter(element => this.state.filters.every(key => element[key]));
-    this.setState( {items} )
+  // если выбрали фильтр - сетим в state, если удалил - удаляем из state
+  onFilterChange = ( {currentTarget} ) => {
+    if ( currentTarget.checked ) {
+      this.setState({ filters: [...this.state.filters, currentTarget.name]});
+    } else {
+      this.setState(({ filters }) => {
+        const idx = filters.findIndex((el) => currentTarget.name === el) // получаем индекс удаляемого эл.
+        const newArray = [
+          ...filters.slice(0, idx),
+          ...filters.slice(idx + 1)
+        ]
+        return { filters : newArray }
+      })
+    }
   }
 
   // смотрим, что вводит юзер
   onSearchChange = ( {currentTarget} ) => {
     const search = currentTarget.value
-    this.setState({ search }, this.filtredSearch )
+    this.setState({ search } )
   }
 
-
-  // фильтруем соглассно вводу юзера
-  filtredSearch() {
-    const items = json.filter(word =>
-        word.name.toLocaleLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1
-    )
-    this.setState( {items} )
-  }
-
-  updateShoppingBasket(event) {
-    const name = event.target.closest(".item").querySelector(".item__name").textContent
-    let quantity = 0
-    let shoppingBasketItems = []
-    const item = {name, quantity}
-    shoppingBasketItems.push(item)
-    console.log( shoppingBasketItems );
+  toSort = ({ currentTarget }) => {
+    const sort = currentTarget.value
+      this.setState({ sort } )
   }
 
   render() {
@@ -65,19 +51,18 @@ export default class Shop extends PureComponent {
           <Search
             onSearchChange={this.onSearchChange}
           />
+          <Sort
+            toSort={this.toSort}
+            sort={this.state.sort}
+          />
         </div>
-        { this.state.items.length
-          ? <Filtered
-              items={this.state.items}
-              updateShoppingBasket={this.updateShoppingBasket}
-            /> // если фильтры есть
-          : <Filtered
-              items={json}
-              updateShoppingBasket={this.updateShoppingBasket}
-            /> // если фильтров нет
-        }
+        <Filtered
+          search={this.state.search}
+          filters={this.state.filters}
+          sort={this.state.sort}
+          items={json}
+        />
       </div>
     )
   }
 }
-

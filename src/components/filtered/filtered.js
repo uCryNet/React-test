@@ -30,17 +30,19 @@ export default class Filtered extends PureComponent {
 
     const result = items.map((item, i) => {
       return (
-        <div key={i} className={style.item}>
-          <div className={style.image}><img src={item.img}  alt={item.name}></img></div>
-          <h2><Link to={`/products/${item.id}`}>{item.name}</Link></h2>
-          <p>{item.components}</p>
-          <p><span>{item.mass}</span></p>
-          <p><span>{item.price}</span></p>
-          <ShoppingBasketContext.Consumer>
-            {( {addToCard} ) => (
-              <button onClick={() => {addToCard(item.name, item.price)}} >Заказать</button>
-            )}
-          </ShoppingBasketContext.Consumer>
+        <div className="card" key={i} className={style.item}>
+          <div className={style.image}><img className="card-img-top image" src={item.img}  alt={item.name}></img></div>
+          <h4 className="card-title"><Link to={`/products/${item.id}`}>{item.name}</Link></h4>
+          <div className="card-body" className={style.body}>
+            <p className="card-text">{item.components}</p>
+            <p className="card-text"><b>Масса:</b> <span>{item.mass}</span></p>
+            <p className="card-text"><b>Цена:</b> <span>{item.price}</span></p>
+            <ShoppingBasketContext.Consumer>
+              {( {addToCard} ) => (
+                <button className="btn btn-primary" onClick={() => {addToCard(item.name, item.price)}} >Заказать</button>
+              )}
+            </ShoppingBasketContext.Consumer>
+          </div>
         </div>
       )
     })

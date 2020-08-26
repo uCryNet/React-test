@@ -1,4 +1,4 @@
-Front-end store selling sushi and rolls. It was realized: filter, sorting, basket, customized routes, there is a menu and a product card.
+Front-end part of the sushi and rolls shop. It was realized: filter, sorting, basket, customized routes, there is a menu and a product card.
 
 ## Available Scripts
 

@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Front-end store selling sushi and rolls. It was realized: filter, sorting, basket, customized routes, there is a menu and a product card.
 
 ## Available Scripts
 

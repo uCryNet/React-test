@@ -1,3 +1,6 @@
+![Иллюстрация к проекту](https://github.com/uCryNet/sushiShop/raw/master/Screenshot_20200826_204911.png)
+
+
 Front-end part of the sushi and rolls shop. It was realized: filter, sorting, basket, customized routes, there is a menu and a product card.
 
 ## Available Scripts

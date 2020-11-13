@@ -2,6 +2,7 @@
 
 
 Front-end part of the sushi and rolls shop. It was realized: filter, sorting, basket, customized routes, there is a menu and a product card.
+[Live review](https://codesandbox.io/s/sushi-shop-react-eh39n)
 
 ## Available Scripts
 
